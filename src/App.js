@@ -43,9 +43,29 @@ function App() {
         <header>
           <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
-              <NavLink to="/" className="link">
-                <h1 className="ms-5 navbar-brand">The Blog</h1>
+              <NavLink to="/" className="link ms-5 navbar-brand">
+                The Blog
               </NavLink>
+              <button
+                className="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
+              <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <ul className="navbar-nav">
+                  <li className="nav-item">
+                    <NavLink to="/" className="link">
+                      Add new post
+                    </NavLink>
+                  </li>
+                </ul>
+              </div>
             </div>
           </nav>
         </header>
