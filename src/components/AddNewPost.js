@@ -2,16 +2,18 @@ import React, { useState, useRef } from 'react';
 
 import InputField from './InputField';
 import TextareaField from './TextareaField';
+import InputSelect from './InputSelect';
 
 import validator from 'validator';
 
 import db from '../firebase/db';
 
-export default function AddNewPost() {
+export default function AddNewPost({ options }) {
   const [fieldValues, setFieldValues] = useState({
     title: '',
     content: '',
     email: '',
+    category: '',
   });
 
   const [formWasValidated, setFormWasValidated] = useState(false);
@@ -23,12 +25,14 @@ export default function AddNewPost() {
     title: useRef(),
     content: useRef(),
     email: useRef(),
+    category: useRef(),
   };
 
   const [errors, setErrors] = useState({
     title: '',
     content: '',
     email: '',
+    category: '',
   });
 
   const validators = {
@@ -41,6 +45,9 @@ export default function AddNewPost() {
     email: {
       required: isNotEmpty,
       isEmail: isValidEmail,
+    },
+    category: {
+      required: isNotEmpty,
     },
   };
 
@@ -127,12 +134,14 @@ export default function AddNewPost() {
         .add({
           title: fieldValues.title,
           content: fieldValues.content,
+          category: fieldValues.category,
           timestamp: new Date(),
         })
         .then((docRef) => {
           setFieldValues({
             title: '',
             content: '',
+            category: '',
             email: '',
           });
           setFormAlertText('Successful saving');
@@ -186,6 +195,17 @@ export default function AddNewPost() {
           fieldValues={fieldValues}
           handleInputBlur={handleInputBlur}
           handleInputChange={handleInputChange}
+          required={true}
+        />
+        <InputSelect
+          reference={references.category}
+          options={options}
+          errors={errors}
+          fieldValues={fieldValues}
+          handleInputBlur={handleInputBlur}
+          handleInputChange={handleInputChange}
+          name="category"
+          labelText="Categories"
           required={true}
         />
         {formAlertText && (

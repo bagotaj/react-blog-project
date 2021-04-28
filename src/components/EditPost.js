@@ -3,15 +3,17 @@ import { useParams } from 'react-router-dom';
 
 import InputField from './InputField';
 import TextareaField from './TextareaField';
+import InputSelect from './InputSelect';
 
 import db from '../firebase/db';
 
-export default function EditPost() {
+export default function EditPost({ options }) {
   const { id } = useParams();
 
   const [fieldValues, setFieldValues] = useState({
     title: '',
     content: '',
+    category: '',
   });
 
   useEffect(() => {
@@ -33,11 +35,13 @@ export default function EditPost() {
   const references = {
     title: useRef(),
     content: useRef(),
+    category: useRef(),
   };
 
   const [errors, setErrors] = useState({
     title: '',
     content: '',
+    category: '',
   });
 
   const validators = {
@@ -45,6 +49,9 @@ export default function EditPost() {
       required: isNotEmpty,
     },
     content: {
+      required: isNotEmpty,
+    },
+    category: {
       required: isNotEmpty,
     },
   };
@@ -128,12 +135,14 @@ export default function EditPost() {
         .update({
           title: fieldValues.title,
           content: fieldValues.content,
+          category: fieldValues.category,
           timestamp: new Date(),
         })
         .then((docRef) => {
           setFieldValues({
             title: '',
             content: '',
+            category: '',
           });
           setFormAlertText('Successful saving');
           setFormAlertType('success');
@@ -175,6 +184,17 @@ export default function EditPost() {
           fieldValues={fieldValues}
           handleInputBlur={handleInputBlur}
           handleInputChange={handleInputChange}
+          required={true}
+        />
+        <InputSelect
+          reference={references.category}
+          options={options}
+          errors={errors}
+          fieldValues={fieldValues}
+          handleInputBlur={handleInputBlur}
+          handleInputChange={handleInputChange}
+          name="category"
+          labelText="Categories"
           required={true}
         />
         {formAlertText && (
