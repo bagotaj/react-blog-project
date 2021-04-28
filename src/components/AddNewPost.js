@@ -123,7 +123,6 @@ export default function AddNewPost() {
     const isValid = isFormValid();
 
     if (isValid) {
-      // console.log('valid');
       db.collection('blogs')
         .add({
           title: fieldValues.title,

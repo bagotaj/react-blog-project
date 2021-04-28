@@ -128,6 +128,7 @@ export default function EditPost() {
         .update({
           title: fieldValues.title,
           content: fieldValues.content,
+          timestamp: new Date(),
         })
         .then((docRef) => {
           setFieldValues({
