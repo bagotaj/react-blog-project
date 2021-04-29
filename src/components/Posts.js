@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export default function Posts({ blogs }) {
   return (
     <div>
-      <h1>Posts</h1>
+      <h1>All Posts</h1>
       {blogs.map((blog, i) => (
         <div key={blog.title + i} className="border p-4 mb-3">
           <h2>{blog.title[0].toUpperCase() + blog.title.slice(1)}</h2>

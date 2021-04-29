@@ -29,7 +29,7 @@ export default function CategoryPage() {
 
   return (
     <div className="mt-3">
-      <h1>{category[0].toUpperCase() + category.slice(1)}</h1>
+      <h1>Category: {category[0].toUpperCase() + category.slice(1)}</h1>
       {postsByCategory.map((blog, i) => (
         <div key={blog.title + i} className="border p-4 mb-3">
           <h2>{blog.title[0].toUpperCase() + blog.title.slice(1)}</h2>

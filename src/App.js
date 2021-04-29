@@ -9,14 +9,22 @@ import {
 
 import AddNewPost from './components/AddNewPost';
 import Posts from './components/Posts';
+import EditPost from './components/EditPost';
+import CategoryPage from './components/CategoryPage';
 
 import { useEffect, useState } from 'react';
 
 import db from './firebase/db';
-import EditPost from './components/EditPost';
 
 function App() {
   const [blogs, setBlogs] = useState([]);
+  const [options, setOptions] = useState([
+    { value: 'sci-fi' },
+    { value: 'science' },
+    { value: 'crypto' },
+    { value: 'web' },
+    { value: 'general topic' },
+  ]);
 
   useEffect(() => {
     const unsubscribe = db.collection('blogs').onSnapshot((snapshot) => {
@@ -71,11 +79,14 @@ function App() {
         </header>
         <main className="container">
           <Switch>
+            <Route path="/category/:category">
+              <CategoryPage />
+            </Route>
             <Route path="/edit-post/:id">
-              <EditPost />
+              <EditPost options={options} />
             </Route>
             <Route exact path="/">
-              <AddNewPost />
+              <AddNewPost options={options} />
             </Route>
           </Switch>
           <Posts blogs={blogs} />
